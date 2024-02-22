@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+
+.navigation{
+       
+border: 4px solid black;
+border-color: blue;
+border-radius: 10px;
+border-style: solid;
+vertical-align: top; 
+right: 0px; 
+bottom: 0px;
+left: 10px; 
+background-color: aquamarine;
+}
+    
+nav ul
+{
+ list-style-type: none; 
+ display: flex; 
+}
+nav li
+{
+ margin-right: 15px; 
+}
+nav a
+{
+ font-size: 1.3em; 
+ color: #181818; 
+ padding-bottom: 2px; 
+ text-decoration: none; 
+}
+
+
+
+</style>
+
+
+    <nav class="navigation">
+        <ul>
+           <li><a href="{% url 'sms_kms' %}">CENI</a> </li>
+           <li><a href="{% url 'sms_bank' %}">COUR</a> </li>
+           <li><a href="#">SMS ...</a> </li>
+           <li><a href="#">SMS ...</a> </li>
+           <li><a href="#">SMS ...</a> </li>
+        </ul>
+    </nav>
+
+{%if smss %}
+    {% for sms in smss %}
+        <article class="media content-section">
+            <div class="media-body">                
+                <h2><a class="article-title" href="#">{{ sms.from_number }}</a></h2>
+                <div class="article-metadata">
+                    <small class="article-author">{{ sms.author }}, </small>
+                    <small class="article-date">{{ sms.to_number }}</small>
+                    <small class="article-date">{{ sms.sent_at }}</small>
+                </div>
+                <p class="article-content">{{ sms.body }}</p>
+            </div>
+        </article>
+
+    {% endfor %}
+{% else %}
+       <h5 class="alert alert-warning">Vous n'avez pas encore de messages !</h5>
+{% endif %}
+
+{% endblock %}
